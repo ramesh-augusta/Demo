@@ -138,9 +138,13 @@ func (t *Grower) shipmentReceivedByDispensary(stub shim.ChaincodeStubInterface, 
 }
 
 
-func (t *Grower) getdispensaryPlacedOrder(stub shim.ChaincodeStubInterface, args []string) ([]byte, error) {
+func (t *Grower) Query(stub shim.ChaincodeStubInterface, args []string) ([]byte, error) {
 	var key, jsonResp string
 	var err error
+	
+	if function != "getdispensaryPlacedOrder" {
+		return nil, errors.New("Invalid query function name. Expecting \"query\"")
+	}
 
     if len(args) != 1 {
         return nil, errors.New("Incorrect number of arguments. Expecting name of the key to query")
